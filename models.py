@@ -9,7 +9,9 @@ class TokenModels(BaseMetadataModel):
     profile = models.ForeignKey(
         'profiles.Profile', 
         on_delete=models.CASCADE, 
-        related_name='token_profile'
+        related_name='token_profile',
+        null=True,
+        blank=True,
     )
 
     is_active = models.BooleanField(default=True)
