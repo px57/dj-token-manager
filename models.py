@@ -1,5 +1,6 @@
 from django.db import models
 from kernel.models.base_metadata_model import BaseMetadataModel
+from django.forms.models import model_to_dict
 
 class TokenModels(BaseMetadataModel):
     """
@@ -38,3 +39,12 @@ class TokenModels(BaseMetadataModel):
 
     def __str__(self):
         return self.token
+    
+    def serialize(self, request):
+        """
+            @description:
+        """
+        serialized = model_to_dict(self)
+        if self.profile:
+            serialized['profile'] = self.profile.serialize(request)
+        return serialized

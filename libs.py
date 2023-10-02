@@ -2,6 +2,7 @@
 from token_manager.models import TokenModels
 from uuid import uuid4
 from django.apps import apps
+from django.utils import timezone
 
 def create_token(
         max_size=32, 
@@ -59,16 +60,38 @@ class RelatedObjectResponse(object):
         """
             @description: 
         """
+        self.__expire_after = None
         self.__token = token
         self.__dbToken = find_token(token=token)
+
+    def set_expire_after(self, expire_after_time):
+        """
+            @description:
+        """
+        self.__expire_after = expire_after_time
+        return self
+
+    def has_expired_token(self):
+        """
+            @description: 
+        """
+        if self.__expire_after is None:
+            return False
+        
+        now = timezone.now()
+        if self.__dbToken.created_on + self.__expire_after < now:
+            return True
+        return False;
 
     def __get_model(self, model_path):
         """
             @description: get the model class with string.
         """
+        if self.has_expired_token():
+            return None
+        
         model = apps.get_model(model_path)
         return model
-
 
     def get_relatedobject(self):
         """
@@ -78,8 +101,13 @@ class RelatedObjectResponse(object):
         relatedObject = self.__get_model(self.__dbToken.relatedModel).objects.get(id=self.__dbToken.relatedModelId)
         return relatedObject
 
-def get_relatedobject_totoken(token):
+def get_relatedobject_totoken(token, expire_after_time=None):
     """
         @description: ont passe un token et ont retourne l'objet qui est lier au token, ou None
+        @params.token: The token that will be used to get the token object
+        @params.expire_after_time: The timedelta after the token will expire
     """
-    return RelatedObjectResponse(token=token)
+    relatedObjectResponse = RelatedObjectResponse(token=token)
+    if expire_after_time is not None:
+        relatedObjectResponse.set_expire_after(expire_after_time)
+    return relatedObjectResponse 
