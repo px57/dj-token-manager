@@ -2,13 +2,14 @@
 from django.shortcuts import render
 from kernel.http import Response 
 from .libs import create_token as create_token_lib
+from .libs import find_token as find_token_lib
+from .libs import use_token as use_token_lib
 
 def create_token(request):
     """
         @description: 
     """
-    res = Response()
-    print (request.POST)
+    res = Response(request=request)
     max_size = request.POST.get('max_size', 32)
     relatedModel = request.POST.get('relatedModel')
     relatedModelId = int(request.POST.get('relatedModelId'))
@@ -26,6 +27,7 @@ def token_exists(request):
         @description: Verify if the token exists. 
     """
     res = Response(request=request)
+    
     return res.success()
 
 def use_token(request):

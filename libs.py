@@ -111,3 +111,14 @@ def get_relatedobject_totoken(token, expire_after_time=None):
     if expire_after_time is not None:
         relatedObjectResponse.set_expire_after(expire_after_time)
     return relatedObjectResponse 
+
+def use_token(token):
+    """
+        @description: 
+    """
+    dbToken = find_token(token=token)
+    if dbToken is None:
+        return None
+    
+    dbToken.delete()
+    return True
