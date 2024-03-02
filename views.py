@@ -5,50 +5,42 @@ from token_manager.libs import create_token as create_token_lib
 from token_manager.libs import find_token as find_token_lib
 from token_manager.libs import use_token as use_token_lib
 from profiles.decorators import load_profile
-from kernel.interfaces.decorators import load_interface
-# from token_manager.rules.stack import TokenManagerDefaultRuleStack
+from kernel.http import load_response
 from token_manager.rules.stack import TOKEN_MANAGER_RULESTACK
 
 @load_profile
-def create_token(request):
+@load_response(stack=TOKEN_MANAGER_RULESTACK)
+def create_token(request, res=None):
     """
         @description: 
     """
-    res = Response(request=request)
-    max_size = request.POST.get('max_size', 32)
-    relatedModel = request.POST.get('relatedModel')
-    relatedModelId = int(request.POST.get('relatedModelId'))
+    _in = res.get_interface()
+    relatedModelId = _in.create_token__get_relatedModelId()
 
-    dbToken = create_token_lib(
-        max_size=max_size,
-        relatedModel=relatedModel,
-        relatedModelId=relatedModelId
-    )
+    dbToken = create_token_lib(_in)
     res.token = dbToken.serialize(request)
     return res.success()
 
 @load_profile
-@load_interface(TOKEN_MANAGER_RULESTACK)
-def redirect_with_token(request):
+@load_response(stack=TOKEN_MANAGER_RULESTACK)
+def redirect(request, token, res=None):
     """
         @description: 
     """
-    res = Response(request=request)
     return res.success()
 
 @load_profile
-def token_exists(request):
+@load_response(stack=TOKEN_MANAGER_RULESTACK)
+def token_exists(request, res=None):
     """
         @description: Verify if the token exists. 
     """
-    res = Response(request=request)
-
     return res.success()
 
 @load_profile
-def use_token(request):
+@load_response(stack=TOKEN_MANAGER_RULESTACK)
+def use_token(request, res=None):
     """
         @description: Use the token and delete it from the database
     """
-    res = Response(request=request)
     return res.success()

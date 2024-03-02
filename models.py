@@ -2,6 +2,7 @@ from django.db import models
 from kernel.models.base_metadata_model import BaseMetadataModel
 from django.forms.models import model_to_dict
 from kernel.http import Response
+from token_manager.rules.stack import TOKEN_MANAGER_RULESTACK
 
 class TokenModels(BaseMetadataModel):
     """
@@ -34,10 +35,11 @@ class TokenModels(BaseMetadataModel):
     )
 
     label = models.CharField(
-        max_length=100,
+        max_length=250,
         null=True,
         blank=True,
-        default=None
+        default=None,
+        choices=TOKEN_MANAGER_RULESTACK.models_choices()
     )
 
     class Meta:

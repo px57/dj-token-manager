@@ -1,44 +1,35 @@
 
 from token_manager.models import TokenModels
-from uuid import uuid4
 from django.apps import apps
 from django.utils import timezone
+import random
 
-def create_token(
-        max_size=32, 
-        relatedModel=None, 
-        relatedModelId=None
-    ):
+def generate_token(_in):
+    """
+        @description: 
+        @params.max_size: The max size of the token
+    """
+    max_size = _in.token_max_size
+    token_character_list = _in.token_character_list
+    token = ''.join(random.choice(token_character_list) for i in range(max_size))
+    return token
+
+def create_token(_in):
     """
         @description: 
         @params.max_size: The max size of the token
         @params.relatedModel: The model that will be related to the token
         @params.relatedModelId: The id of the model that will be related to the token
     """
-    def generate_token(max_size=32): 
-        """
-            @decription: 
-        """
-        token = uuid4().hex
-        # token = token.replace('-', '')
-        token = token[:max_size]
-        return token
-
-
-    token = generate_token(max_size=max_size)
-    try:
-        dbToken = TokenModels.objects.create(
-            token=token, 
-            relatedModel=relatedModel, 
-            relatedModelId=relatedModelId
-        )
-        dbToken.save()
-    except Exception as e:
-        return create_token(
-            max_size=max_size, 
-            relatedModel=relatedModel, 
-            relatedModelId=relatedModelId
-        )
+    max_size = _in.token_max_size
+    relatedModel = _in.relatedModel
+    relatedModelId = _in.create_token__get_relatedModelId()
+    token = generate_token(_in)
+    dbToken = TokenModels.objects.create(
+        token=token,
+        relatedModel=relatedModel,
+        relatedModelId=relatedModelId
+    )
     return dbToken
 
 def find_token(token):

@@ -9,9 +9,9 @@ urlpatterns = [
         name='create_token'
     ),
     path(
-        'redirect_with_token/', 
-        views.redirect_with_token, 
-        name='redirect_with_token'
+        'redirect/:token/', 
+        views.redirect, 
+        name='redirect'
     ),
 ]
 
