@@ -6,24 +6,29 @@ import random
 
 def generate_token(_in):
     """
-        @description: 
-        @params.max_size: The max size of the token
+    Generate a token
+
+    Args:
+        _in: The interface object
     """
     max_size = _in.token_max_size
     token_character_list = _in.token_character_list
     token = ''.join(random.choice(token_character_list) for i in range(max_size))
     return token
 
-def create_token(_in):
+def create_token(_in, relatedModelId=None):
     """
-        @description: 
-        @params.max_size: The max size of the token
-        @params.relatedModel: The model that will be related to the token
-        @params.relatedModelId: The id of the model that will be related to the token
+    Create a token and save it in the database
+    Args:
+        _in: The interface object
+        relatedModelId: The id of the related model
     """
     max_size = _in.token_max_size
     relatedModel = _in.relatedModel
-    relatedModelId = _in.create_token__get_relatedModelId()
+
+    if relatedModelId is None:
+        relatedModelId = _in.create_token__get_relatedModelId()
+
     token = generate_token(_in)
     dbToken = TokenModels.objects.create(
         token=token,
