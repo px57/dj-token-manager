@@ -8,7 +8,11 @@ class TokenModels(BaseMetadataModel):
     """
         @description: 
     """
-    token = models.CharField(max_length=255, unique=True)
+    token = models.CharField(
+        max_length=255, 
+        unique=True
+    )
+    
     profile = models.ForeignKey(
         'profiles.Profile', 
         on_delete=models.CASCADE, 

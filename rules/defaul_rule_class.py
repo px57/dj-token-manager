@@ -49,4 +49,4 @@ class DefaultRuleClass(InterfaceManager):
         Run this event when the token is expired.
         """
         
-TOKEN_MANAGER_RULESTACK.set_rule(DefaultRuleClass())
+TOKEN_MANAGER_RULESTACK.set_rule(DefaultRuleClass)

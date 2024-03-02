@@ -113,3 +113,17 @@ def use_token(token):
     
     dbToken.delete()
     return True
+
+def redirect(_in):
+    """
+    Redirect the user to the right page
+    """
+
+def token_exists(token):
+    """
+        @description: Verify if the token exists. 
+    """
+    dbToken = find_token(token=token)
+    if dbToken is None:
+        return False
+    return True 
