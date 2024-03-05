@@ -1,6 +1,11 @@
-from django.db import models
-from kernel.models.base_metadata_model import BaseMetadataModel
+
 from django.forms.models import model_to_dict
+from django.db import models
+# import django reverse 
+from django.urls import reverse
+
+from kernel.models.base_metadata_model import BaseMetadataModel
+
 from kernel.http import Response
 from token_manager.rules.stack import TOKEN_MANAGER_RULESTACK
 
@@ -69,4 +74,6 @@ class TokenModels(BaseMetadataModel):
             @description: 
             @param.res -> Response
         """
-        return res.create_client_url(f'/reset-password/{self.token}/redirect')
+        path = reverse('token_manager__redirect')
+        path = path.replace(':token', self.token)
+        return res.create_client_url(path)

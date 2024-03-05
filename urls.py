@@ -6,12 +6,12 @@ urlpatterns = [
     path(
         'create_token/', 
         views.create_token, 
-        name='create_token'
+        name='token_manager__create_token'
     ),
     path(
         'redirect/:token/', 
         views.redirect, 
-        name='redirect'
+        name='token_manager__redirect'
     ),
 ]
 
