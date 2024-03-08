@@ -5,8 +5,9 @@ from django.db import models
 from django.urls import reverse
 
 from kernel.models.base_metadata_model import BaseMetadataModel
-
 from kernel.http import Response
+from kernel.models.fetch_all_models_file import choicesListRelatedModels
+
 from token_manager.rules.stack import TOKEN_MANAGER_RULESTACK
 
 
@@ -35,7 +36,8 @@ class TokenModels(BaseMetadataModel):
     relatedModel = models.CharField(
         max_length=255, 
         null=True, 
-        blank=True
+        blank=True,
+        choices=choicesListRelatedModels()
     )
 
     # -> Get the nice object
