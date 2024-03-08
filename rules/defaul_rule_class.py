@@ -47,6 +47,19 @@ class DefaultRuleClass(InterfaceManager):
     def event_token_expired(self):
         """
         Run this event when the token is expired.
-        """
+        """ 
+
+class NumericRuleClass(DefaultRuleClass):
+    """
+    The numeric rule class.
+    """
+    token_character_list = '0123456789'
+
+class DigitalNumericRuleClass(DefaultRuleClass):
+    """
+    The digital numeric rule class.
+    """
+    token_character_list = '0123456789'
+    token_max_size = 4
         
-TOKEN_MANAGER_RULESTACK.set_rule(DefaultRuleClass)
+# TOKEN_MANAGER_RULESTACK.set_rule(DefaultRuleClass)
