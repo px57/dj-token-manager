@@ -52,7 +52,7 @@ class DefaultRuleClass(InterfaceManager):
     def event_token_expired(self):
         """
         Run this event when the token is expired.
-        """ 
+        """
 
     #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> [CHECK] <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     def gpm__viewparams__check_is_valid(self):
@@ -63,6 +63,18 @@ class DefaultRuleClass(InterfaceManager):
             'token': self.request.POST.get('token')
         }
 
+    def event_check_token(self, dbToken):
+        """
+        Check the token, and mark it as used.
+
+        Args:
+            dbToken (TokenModel): The token
+        Return: 
+            dbToken (TokenModel): The token
+        """
+        dbToken.is_active = False
+        dbToken.save()
+        return dbToken
 
 class NumericRuleClass(DefaultRuleClass):
     """

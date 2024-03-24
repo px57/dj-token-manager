@@ -60,7 +60,13 @@ def clean_token(self):
         raise forms.ValidationError(
             "Token has expired"
         )
-    
+
+    # Check if the token is_active
+    if not dbToken.is_active:
+        raise forms.ValidationError(
+            "Token is not active"
+        )
+
     # The interface corrensponding to the _in.label
     if dbToken.label != self._in.label:
         raise forms.ValidationError(

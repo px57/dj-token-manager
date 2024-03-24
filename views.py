@@ -23,7 +23,7 @@ def create_token(request, res=None, _in=None):
     """
     # _in = res.get_interface()
     relatedModelId = _in.create_token__get_relatedModelId()
-    TokenModels.objects.all().delete()
+    # TokenModels.objects.all().delete()event_check_token
 
     dbToken = create_token_lib(_in)
     res.token = dbToken.serialize(request)
@@ -73,5 +73,9 @@ def check_is_valid(
         _in (Interface): The interface
         **kwargs: The keyword arguments
     """
-    
+    cleaned_data = _in.form.cleaned_data
+    dbToken = cleaned_data.get('token')
+
+    _in.event_check_token(dbToken)
+    res.token = dbToken.serialize(request)
     return res.success()
