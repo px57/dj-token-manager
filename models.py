@@ -1,7 +1,7 @@
 
 from django.forms.models import model_to_dict
 from django.db import models
-# import django reverse 
+from django.utils import timezone
 from django.urls import reverse
 
 from kernel.models.base_metadata_model import BaseMetadataModel
@@ -79,3 +79,20 @@ class TokenModels(BaseMetadataModel):
         path = reverse('token_manager__redirect')
         path = path.replace(':token', self.token)
         return res.create_client_url(path)
+    
+    def has_expired(self, _in) -> bool:
+        """
+            @description: 
+        """
+
+        # [interface.params]
+        token_expiration_allow = _in.token_expiration_allow
+        expiration_after = _in.expiration_after
+
+        if not token_expiration_allow:
+            return False
+        
+        now = timezone.now()
+        if self.created_on + expiration_after < now:
+            return True
+        return False

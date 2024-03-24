@@ -26,6 +26,11 @@ class DefaultRuleClass(InterfaceManager):
     token_max_size = 32
 
     """
+    token min size
+    """
+    token_min_size = 32
+
+    """
     Token character list 
     """
     token_character_list = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -48,6 +53,16 @@ class DefaultRuleClass(InterfaceManager):
         """
         Run this event when the token is expired.
         """ 
+
+    #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> [CHECK] <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    def gpm__viewparams__check_is_valid(self):
+        """
+        Check if the token is valid.
+        """
+        return {
+            'token': self.request.POST.get('token')
+        }
+
 
 class NumericRuleClass(DefaultRuleClass):
     """

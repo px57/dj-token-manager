@@ -6,9 +6,14 @@ from token_manager.libs import find_token as find_token_lib
 from token_manager.libs import use_token as use_token_lib
 from token_manager.libs import token_exists as token_exists_lib
 from token_manager.libs import redirect as redirect_lib
+
+from token_manager.rules.stack import TOKEN_MANAGER_RULESTACK
+
+from token_manager.forms import CheckIsValidForm
+
 from profiles.decorators import load_profile
 from kernel.http import load_response
-from token_manager.rules.stack import TOKEN_MANAGER_RULESTACK
+
 
 @load_profile
 @load_response(stack=TOKEN_MANAGER_RULESTACK)
@@ -46,3 +51,26 @@ def redirect(request, token, res=None):
 #         @description: Use the token and delete it from the database
 #     """
 #     return res.success()
+
+@load_response(
+    stack=TOKEN_MANAGER_RULESTACK,
+    json=True,
+    load_params=True,
+    form=CheckIsValidForm
+)
+def check_is_valid(
+    request, 
+    res=None, 
+    _in=None, 
+    **kwargs):
+    """
+    Check if the token is valid
+
+    Args:
+        request (Request): The request
+        res (Response): The response
+        _in (Interface): The interface
+        **kwargs: The keyword arguments
+    """
+    
+    return res.success()

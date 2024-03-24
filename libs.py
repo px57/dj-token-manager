@@ -131,4 +131,9 @@ def token_exists(token):
     dbToken = find_token(token=token)
     if dbToken is None:
         return False
-    return True 
+    return True
+
+def has_expired_token(_in, dbToken):
+    """
+    Observe if the token is expired.
+    """

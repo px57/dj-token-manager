@@ -13,5 +13,10 @@ urlpatterns = [
         views.redirect, 
         name='token_manager__redirect'
     ),
+    path(
+        'check_is_valid/', 
+        views.check_is_valid, 
+        name='token_manager__check_is_valid'
+    ),
 ]
 
