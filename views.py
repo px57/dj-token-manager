@@ -17,11 +17,11 @@ from kernel.http import load_response
 
 @load_profile
 @load_response(stack=TOKEN_MANAGER_RULESTACK)
-def create_token(request, res=None):
+def create_token(request, res=None, _in=None):
     """
         @description: 
     """
-    _in = res.get_interface()
+    # _in = res.get_interface()
     relatedModelId = _in.create_token__get_relatedModelId()
 
     dbToken = create_token_lib(_in)
@@ -30,7 +30,7 @@ def create_token(request, res=None):
 
 @load_profile
 @load_response(stack=TOKEN_MANAGER_RULESTACK)
-def redirect(request, token, res=None):
+def redirect(request, token, res=None, _in=None):
     """
         @description: 
     """
