@@ -33,7 +33,8 @@ def create_token(_in, relatedModelId=None):
     dbToken = TokenModels.objects.create(
         token=token,
         relatedModel=relatedModel,
-        relatedModelId=relatedModelId
+        relatedModelId=relatedModelId,
+        label=_in.label
     )
     return dbToken
 

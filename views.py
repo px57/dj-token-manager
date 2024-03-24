@@ -8,7 +8,7 @@ from token_manager.libs import token_exists as token_exists_lib
 from token_manager.libs import redirect as redirect_lib
 
 from token_manager.rules.stack import TOKEN_MANAGER_RULESTACK
-
+from token_manager.models import TokenModels
 from token_manager.forms import CheckIsValidForm
 
 from profiles.decorators import load_profile
@@ -23,6 +23,7 @@ def create_token(request, res=None, _in=None):
     """
     # _in = res.get_interface()
     relatedModelId = _in.create_token__get_relatedModelId()
+    TokenModels.objects.all().delete()
 
     dbToken = create_token_lib(_in)
     res.token = dbToken.serialize(request)

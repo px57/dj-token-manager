@@ -17,7 +17,7 @@ class TokenModels(BaseMetadataModel):
     """
     token = models.CharField(
         max_length=255, 
-        unique=True
+        unique=True,
     )
     
     profile = models.ForeignKey(
