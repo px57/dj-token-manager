@@ -1,6 +1,6 @@
 
 from django.shortcuts import render
-from kernel.http import Response 
+from gpm.http import Response 
 from token_manager.libs import create_token as create_token_lib
 from token_manager.libs import find_token as find_token_lib
 from token_manager.libs import use_token as use_token_lib
@@ -12,7 +12,7 @@ from token_manager.models import TokenModels
 from token_manager.forms import CheckIsValidForm
 
 from profiles.decorators import load_profile
-from kernel.http import load_response
+from gpm.http import load_response
 
 
 @load_profile

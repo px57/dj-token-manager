@@ -4,9 +4,9 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 
-from kernel.models.base_metadata_model import BaseMetadataModel
-from kernel.http import Response
-from kernel.models.fetch_all_models_file import choicesListRelatedModels
+from gpm.models.base_metadata_model import BaseMetadataModel
+from gpm.http import Response
+from gpm.models.fetch_all_models_file import choicesListRelatedModels
 
 from token_manager.rules.stack import TOKEN_MANAGER_RULESTACK
 

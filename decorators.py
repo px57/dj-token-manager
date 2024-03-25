@@ -1,5 +1,5 @@
 
-from kernel.http import Response
+from gpm.http import Response
 from .libs import create_token as create_token_lib
 from .libs import find_token as find_token_lib
 from .libs import use_token as use_token_lib

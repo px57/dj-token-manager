@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from token_manager.libs import create_token, find_token, get_relatedobject_totoken
-from kernel.http import Response
+from gpm.http import Response
 import profiles
 
 class TokenTestUsage(TestCase):
