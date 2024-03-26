@@ -42,8 +42,8 @@ class TokenModels(BaseMetadataModel):
 
     # -> Get the nice object
     relatedModelId = models.IntegerField(
-        null=True, 
-        blank=True
+        null=True,
+        blank=True,
     )
 
     label = models.CharField(
